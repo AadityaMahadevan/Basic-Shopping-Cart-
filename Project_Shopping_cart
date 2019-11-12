@@ -1,3 +1,10 @@
+This is a shopping cart application which asks the user their budget and alerts them if the limit has been exceeded,
+as they add items to the cart with item name, quantity and cost. If the user wants to change the quantity, they can just add
+the same item with the name , new quantity and cost per item which will get updated into the cart. 
+
+
+
+
 
 bud = float(input("Enter your budget : "))  
 s = bud
@@ -6,7 +13,7 @@ b = list(a.values())   #coverting dictionary to list to append values
  
 na = b[0]  #corresponds to name of item
 qu = b[1] #corresponds to quantity of item
-pr = b[2] #corresponds to price of item
+pr = b[2] #corresponds to total price of the item
   
 while True:
     ch = int(input("Enter 1 to Add an item\nEnter 2 to exit cart\n")) 
@@ -14,10 +21,11 @@ while True:
                 
         pname = input("Enter product name : ")  
         q = input("Enter quantity : ") 
-        cost = float(input("Enter price of the product : "))   
+        cost = float(input("Enter cost of one item : "))  
+        q1=float(q) 
   
-        if cost>s: 
-             print("\nCan't buy THE PRODUCT")  #budget is less than price of item
+        if cost*q1>s: 
+             print("\nBUDGET EXCEEDED!")  #budget is less than price of item
              continue 
   
         else: 
@@ -27,7 +35,7 @@ while True:
                  pr.remove(pr[ind])
 
                  qu.insert(ind, q)   
-                 pr.insert(ind, cost)    
+                 pr.insert(ind, q1*cost)    
                  s = bud-sum(pr)    
   
                  print("\nAmount left is :", s) 
@@ -35,21 +43,26 @@ while True:
              else: 
                  na.append(pname)   
                  qu.append(q) 
-                 pr.append(cost)  
-                 s = bud-sum(pr)    
+                 pr.append(q1*cost)  
+                 s = bud-sum(pr)
+
+                 if s==0:
+                   print("\nBUDGET EXHAUSTED") 
+                   break    
   
                  print("\nAmount left is :", s) 
                  print("\n")
   
         
     elif s<= 0:  #if budget is exhausted
-       print("\nNO BUDGET")  
+       print("\nBUDGET EXHAUSTED") 
+       break 
     else: 
       break 
   
 print("\nAmount left : Rs. ", s)  
  
-print("\n\n\nYour Grocery list is as follows:") 
+print("\n\n\nYour Shopping cart list is as follows:") 
   
 for i in range(len(na)):  
     print(na[i], "\t", qu[i], "\t", pr[i]) 
