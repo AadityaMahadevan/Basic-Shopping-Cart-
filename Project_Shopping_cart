@@ -1,0 +1,55 @@
+
+bud = float(input("Enter your budget : "))  
+s = bud
+a ={"name":[], "quant":[], "price":[]} #creating a dictionary
+b = list(a.values())   #coverting dictionary to list to append values
+ 
+na = b[0]  #corresponds to name of item
+qu = b[1] #corresponds to quantity of item
+pr = b[2] #corresponds to price of item
+  
+while True:
+    ch = int(input("Enter 1 to Add an item\nEnter 2 to exit cart\n")) 
+    if ch == 1 and s>0:        
+                
+        pname = input("Enter product name : ")  
+        q = input("Enter quantity : ") 
+        cost = float(input("Enter price of the product : "))   
+  
+        if cost>s: 
+             print("\nCan't buy THE PRODUCT")  #budget is less than price of item
+             continue 
+  
+        else: 
+             if pname in na:   #checks if the item is present, if yes then it updates the old values with the given inputs
+                 ind = na.index(pname)    
+                 qu.remove(qu[ind])  
+                 pr.remove(pr[ind])
+
+                 qu.insert(ind, q)   
+                 pr.insert(ind, cost)    
+                 s = bud-sum(pr)    
+  
+                 print("\nAmount left is :", s) 
+                 print("\n")
+             else: 
+                 na.append(pname)   
+                 qu.append(q) 
+                 pr.append(cost)  
+                 s = bud-sum(pr)    
+  
+                 print("\nAmount left is :", s) 
+                 print("\n")
+  
+        
+    elif s<= 0:  #if budget is exhausted
+       print("\nNO BUDGET")  
+    else: 
+      break 
+  
+print("\nAmount left : Rs. ", s)  
+ 
+print("\n\n\nYour Grocery list is as follows:") 
+  
+for i in range(len(na)):  
+    print(na[i], "\t", qu[i], "\t", pr[i]) 
